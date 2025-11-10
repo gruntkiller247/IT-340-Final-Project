@@ -1,35 +1,38 @@
 const express = require('express');
-const mongoose = require('mongoose'); // Add mongoose
+const mongoose = require('mongoose');
+const path = require('path'); // Add path module for better file path management
 const app = express();
 const port = 3000;
 
-// MongoDB connection URI
-const dbURI = 'mongodb+srv://<username>:<password>@cluster0.mongodb.net/<dbname>?retryWrites=true&w=majority';
+// MongoDB connection URI for local MongoDB
+const dbURI = 'mongodb://localhost:27017/myLocalDatabase';
 
 // Connect to MongoDB
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
-    console.log('MongoDB connected');
+    console.log('MongoDB connected to local instance');
   })
   .catch((err) => {
     console.log('MongoDB connection error:', err);
   });
 
+// Serve static files (like index.html) from the "public" directory
+app.use(express.static(path.join(__dirname, 'public')));
+
 // Test route to verify server and MongoDB connection
 app.get('/', (req, res) => {
-  res.send('Hello MEAN Stack!');
+  // The index.html file is automatically served because it's in the "public" folder
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Example route for database interaction (can be modified)
+// Example route for database interaction
 app.get('/test-db', async (req, res) => {
   try {
-    // Simple Mongoose model example
     const User = mongoose.model('User', new mongoose.Schema({
       name: String,
       email: String
     }));
 
-    // Create a new user (just for testing purposes)
     const user = new User({ name: 'John Doe', email: 'john.doe@example.com' });
     await user.save();
 
