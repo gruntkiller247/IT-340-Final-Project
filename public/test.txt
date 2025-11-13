@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login - Overwatch Stats</title>
+  <title>Register - Overwatch Stats</title>
   <style>
     * {
       box-sizing: border-box;
@@ -20,7 +20,7 @@
       align-items: center;
     }
 
-    .login-container {
+    .register-container {
       background-color: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(6px);
       padding: 40px;
@@ -31,14 +31,15 @@
       color: #fff;
     }
 
-    .login-container h2 {
+    .register-container h2 {
       margin-bottom: 25px;
       font-size: 2em;
       color: #fff;
     }
 
-    .login-container input[type="text"],
-    .login-container input[type="password"] {
+    .register-container input[type="text"],
+    .register-container input[type="email"],
+    .register-container input[type="password"] {
       width: 100%;
       padding: 12px;
       margin: 10px 0 18px 0;
@@ -48,12 +49,11 @@
       outline: none;
     }
 
-    .login-container input[type="text"]::placeholder,
-    .login-container input[type="password"]::placeholder {
+    .register-container input::placeholder {
       color: #999;
     }
 
-    .login-container button {
+    .register-container button {
       width: 100%;
       background-color: #ffb300;
       color: #1e2a78;
@@ -66,57 +66,79 @@
       transition: background-color 0.3s;
     }
 
-    .login-container button:hover {
+    .register-container button:hover {
       background-color: #ffd54f;
     }
 
-    .login-container .register-link {
+    .register-container .login-link {
       margin-top: 20px;
       font-size: 0.9em;
       opacity: 0.9;
     }
 
-    .login-container .register-link a {
+    .register-container .login-link a {
       color: #ffb300;
       text-decoration: none;
     }
 
-    .login-container .register-link a:hover {
+    .register-container .login-link a:hover {
+      text-decoration: underline;
+    }
+
+    .register-container .register-link {
+      margin-top: 20px;
+      font-size: 0.9em;
+      opacity: 0.9;
+    }
+
+    .register-container .register-link a {
+      color: #ffb300;
+      text-decoration: none;
+    }
+
+    .register-container .register-link a:hover {
       text-decoration: underline;
     }
   </style>
 </head>
 <body>
 
-  <div class="login-container">
-    <h2>Overwatch Stats Login</h2>
-    <form id="loginForm">
+  <div class="register-container">
+    <h2>Overwatch Stats Register</h2>
+    <form id="registerForm">
       <input type="text" id="username" name="username" placeholder="Enter your username" required />
+      <input type="email" id="email" name="email" placeholder="Enter your email" required />
       <input type="password" id="password" name="password" placeholder="Enter your password" required />
-      <button type="submit">Login</button>
+      <button type="submit">Register</button>
     </form>
+    <div class="login-link">
+      <p>Already have an account? <a href="login.html">Log in</a></p>
+    </div>
     <div class="register-link">
-      <p>Don’t have an account? <a href="register.html">Sign up</a></p>
+      <p>Don't have an account? <a href="register.html">Register Now</a></p> <!-- Added Register Now link -->
     </div>
   </div>
 
   <script>
-    document.getElementById("loginForm").addEventListener("submit", function(event) {
+    document.getElementById("registerForm").addEventListener("submit", function(event) {
       event.preventDefault();
 
       const username = document.getElementById("username").value.trim();
+      const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
 
-      if (!username || !password) {
-        alert("Please enter both username and password.");
+      if (!username || !email || !password) {
+        alert("Please fill out all fields.");
         return;
       }
 
-      // For now, accept any username/password
+      // For now, just store the data in localStorage (this is for demo purposes)
       localStorage.setItem("username", username);
+      localStorage.setItem("email", email);
 
-      // Redirect to home page
-      window.location.href = "home.html";
+      // Simulate successful registration and redirect to login page
+      alert("Registration successful! Please log in.");
+      window.location.href = "login.html"; // Redirect to login page after registration
     });
   </script>
 
