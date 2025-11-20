@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Overwatch Player Stats</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1e2a78, #ff9800);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    header {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      text-align: center;
+      padding: 20px 0;
+      backdrop-filter: blur(5px);
+    }
+
+    header h1 {
+      font-size: 2.2em;
+      margin-bottom: 5px;
+    }
+
+    header p {
+      font-size: 1em;
+      opacity: 0.8;
+    }
+
+    main {
+      margin-top: 30px;
+      width: 90%;
+      max-width: 1000px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .hero-name {
+      font-size: 1.4em;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .hero-role {
+      font-size: 0.9em;
+      opacity: 0.8;
+      margin-bottom: 15px;
+    }
+
+    .stat {
+      font-size: 1.2em;
+      margin: 5px 0;
+    }
+
+    .button-bar {
+      display: flex;
+      gap: 10px;
+      margin: 30px 0;
+    }
+
+    button {
+      background-color: #ffb300;
+      border: none;
+      color: #1e2a78;
+      padding: 12px 25px;
+      font-size: 1.1em;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #ffd54f;
+    }
+
+    .logout-btn {
+      background-color: #ff4444;
+      color: #fff;
+    }
+
+    .logout-btn:hover {
+      background-color: #ff6b6b;
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 15px;
+      text-align: center;
+      opacity: 0.8;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Overwatch Player Stats</h1>
+    <p>Welcome, <strong id="playerName"></strong> — your latest match performance summary</p>
+  </header>
+
+  <main id="stats-container">
+    <!-- Hero stat cards will be generated here -->
+  </main>
+
+  <div class="button-bar">
+    <button onclick="generateStats()">🔄 Refresh Stats</button>
+    <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+  </div>
+
+  <footer>
+    &copy; 2025 Overwatch Tracker (Fan Project)
+  </footer>
+
+  <script>
+    // Get username from localStorage
+    const username = localStorage.getItem("username");
+
+    if (!username) {
+      // Not logged in → redirect
+      alert("You are not logged in. Redirecting to login page.");
+      //window.location.href = "login.html";
+    } else {
+      // Show username
+      document.getElementById("playerName").textContent = username;
+    }
+
+    const heroes = [
+      { name: "Tracer", role: "Damage" },
+      { name: "Reinhardt", role: "Tank" },
+      { name: "Mercy", role: "Support" },
+      { name: "Soldier: 76", role: "Damage" },
+      { name: "D.Va", role: "Tank" },
+      { name: "Ana", role: "Support" },
+      { name: "Genji", role: "Damage" },
+      { name: "Winston", role: "Tank" },
+      { name: "Moira", role: "Support" },
+      { name: "Hanzo", role: "Damage" }
+    ];
+
+    function randomStat(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function generateStats() {
+      const container = document.getElementById("stats-container");
+      container.innerHTML = "";
+
+      heroes.forEach(hero => {
+        const kills = randomStat(10, 50);
+        const deaths = randomStat(5, 25);
+        const assists = randomStat(5, 40);
+        const winRate = randomStat(40, 80);
+
+        const card = document.createElement("div");
+        card.classList.add("stat-card");
+        card.innerHTML = `
+          <div class="hero-name">${hero.name}</div>
+          <div class="hero-role">${hero.role}</div>
+          <div class="stat">🔥 Kills: ${kills}</div>
+          <div class="stat">💀 Deaths: ${deaths}</div>
+          <div class="stat">🤝 Assists: ${assists}</div>
+          <div class="stat">🏆 Win Rate: ${winRate}%</div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function logout() {
+      localStorage.removeItem("username");
+      window.location.href = "index.html";
+    }
+
+    // Generate stats on page load
+    generateStats();
+  </script>
+
+</body>
+</html>

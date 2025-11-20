@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register - Overwatch Stats</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1e2a78, #ff9800);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .register-container {
+      background-color: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(6px);
+      padding: 40px;
+      border-radius: 12px;
+      width: 350px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      text-align: center;
+      color: #fff;
+    }
+
+    .register-container h2 {
+      margin-bottom: 25px;
+      font-size: 2em;
+      color: #fff;
+    }
+
+    .register-container input[type="text"],
+    .register-container input[type="email"],
+    .register-container input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0 18px 0;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .register-container input::placeholder {
+      color: #999;
+    }
+
+    .register-container button {
+      width: 100%;
+      background-color: #ffb300;
+      color: #1e2a78;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .register-container button:hover {
+      background-color: #ffd54f;
+    }
+
+    .register-container .login-link {
+      margin-top: 20px;
+      font-size: 0.9em;
+      opacity: 0.9;
+    }
+
+    .register-container .login-link a {
+      color: #ffb300;
+      text-decoration: none;
+    }
+
+    .register-container .login-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="register-container">
+    <h2>Overwatch Stats Register</h2>
+    <form id="registerForm">
+      <input type="text" id="username" name="username" placeholder="Enter your username" required />
+      <input type="email" id="email" name="email" placeholder="Enter your email" required />
+      <input type="password" id="password" name="password" placeholder="Enter your password" required />
+      <button type="submit">Register</button>
+    </form>
+    <div class="login-link">
+      <p>Already have an account? <a href="index.html">Log in</a></p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("registerForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const username = document.getElementById("username").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      if (!username || !email || !password) {
+        alert("Please fill out all fields.");
+        return;
+      }
+
+      // For now, just store the data in localStorage (this is for demo purposes)
+      localStorage.setItem("username", username);
+      localStorage.setItem("email", email);
+
+      // Simulate successful registration and redirect to login page
+      alert("Registration successful! Please log in.");
+      window.location.href = "index.html"; // Redirect to login page after registration
+    });
+  </script>
+
+</body>
+</html>
