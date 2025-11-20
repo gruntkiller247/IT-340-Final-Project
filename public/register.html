@@ -102,7 +102,6 @@
   </div>
 
   <script>
-<<<<<<< HEAD
   document.getElementById("registerForm").addEventListener("submit", async function(event) {
     event.preventDefault();
 
@@ -126,29 +125,6 @@
     }
   });
 </script>
-=======
-    document.getElementById("registerForm").addEventListener("submit", function(event) {
-      event.preventDefault();
-
-      const username = document.getElementById("username").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value;
-
-      if (!username || !email || !password) {
-        alert("Please fill out all fields.");
-        return;
-      }
-
-      // For now, just store the data in localStorage (this is for demo purposes)
-      localStorage.setItem("username", username);
-      localStorage.setItem("email", email);
-
-      // Simulate successful registration and redirect to login page
-      alert("Registration successful! Please log in.");
-      window.location.href = "index.html"; // Redirect to login page after registration
-    });
-  </script>
->>>>>>> 73f2a05dbfb06edc724267c56ec70985482882f1
 
 </body>
 </html>
