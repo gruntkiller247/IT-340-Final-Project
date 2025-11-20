@@ -101,31 +101,7 @@
   </div>
 
   <script>
-<<<<<<< HEAD
-  document.getElementById("loginForm").addEventListener("submit", async function(event) {
-    event.preventDefault();
 
-    const username = document.getElementById("username").value.trim();
-    const password = document.getElementById("password").value;
-
-    const response = await fetch('/api/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password })
-    });
-
-    const result = await response.json();
-
-    if (result.success) {
-      // Store username for the Home page to display
-      localStorage.setItem("username", result.username);
-      window.location.href = "home.html";
-    } else {
-      alert(result.message || "Login failed");
-    }
-  });
-</script>
-=======
     document.getElementById("loginForm").addEventListener("submit", function(event) {
       event.preventDefault();
 
@@ -144,7 +120,5 @@
       window.location.href = "home.html";
     });
   </script>
->>>>>>> 73f2a05dbfb06edc724267c56ec70985482882f1
-
 </body>
 </html>
