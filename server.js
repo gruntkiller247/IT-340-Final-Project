@@ -1,6 +1,5 @@
 const express = require('express');
 const mongoose = require('mongoose');
-<<<<<<< HEAD
 const path = require('path');
 const app = express();
 const port = 3000;
@@ -63,13 +62,7 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
-=======
-const path = require('path'); // Add path module for better file path management
-const app = express();
-const port = 3000;
 
-// MongoDB connection URI for local MongoDB
-const dbURI = 'mongodb://localhost:27017/myLocalDatabase';
 
 // Connect to MongoDB
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -110,5 +103,3 @@ app.get('/test-db', async (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
-
->>>>>>> 73f2a05dbfb06edc724267c56ec70985482882f1
