@@ -101,9 +101,9 @@
   </div>
 
   <script>
-
-    document.getElementById("loginForm").addEventListener("submit", function(event) {
-      event.preventDefault();
+    // Add event listener for form submission
+    document.getElementById("loginForm").addEventListener("submit", async function(event) {
+      event.preventDefault(); // Prevent the default form submission
 
       const username = document.getElementById("username").value.trim();
       const password = document.getElementById("password").value;
@@ -113,12 +113,33 @@
         return;
       }
 
-      // For now, accept any username/password
-      localStorage.setItem("username", username);
+      // Make an API call to compare the entered credentials with the database
+      try {
+        const response = await fetch('/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username, password })
+        });
 
-      // Redirect to home page
-      window.location.href = "home.html";
+        const result = await response.json();
+
+        if (result.success) {
+          // Save username to localStorage
+          localStorage.setItem("username", username);
+          
+          // Redirect to home page
+          window.location.href = "home.html";
+        } else {
+          alert("Error: " + result.message);  // Invalid username/password
+        }
+      } catch (err) {
+        console.error("Error during login:", err);
+        alert("An error occurred. Please try again later.");
+      }
     });
   </script>
 </body>
 </html>
+
