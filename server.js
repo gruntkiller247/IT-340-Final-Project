@@ -90,7 +90,7 @@ app.get('/test-db', async (req, res) => {
       email: String
     }));
 
-    const user = new User({ name: 'John Doe', email: 'john.doe@example.com' });
+    const user = new User({ name: 'Jane Doe', email: 'john.doe@example.com' });
     await user.save();
 
     res.send('User saved to MongoDB');
