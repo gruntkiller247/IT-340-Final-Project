@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
+const bcrypt = require('bcrypt');
 const app = express();
 const port = 3000;
 
@@ -31,7 +32,11 @@ app.post('/api/register', async (req, res) => {
     if (existingUser) {
         return res.status(400).json({ success: false, message: 'Username already taken' });
     }
-    const newUser = new User({ username, email, password });
+    
+    const saltRounds = 10;
+    const hashedPassword=await bcrypt.hash(password,saltRounds);
+    
+    const newUser = new User({ username, email, password: hashedPassword});
     await newUser.save();
     res.json({ success: true, message: 'User registered!' });
   } catch (err) {
@@ -43,13 +48,35 @@ app.post('/api/register', async (req, res) => {
 app.post('/api/login', async (req, res) => {
   try {
     const { username, password } = req.body;
-    const user = await User.findOne({ username, password });
     
-    if (user) {
-      res.json({ success: true, username: user.username });
-    } else {
-      res.status(401).json({ success: false, message: 'Invalid credentials' });
+    console.log("Received login data:",{username,password});
+    
+    const user = await User.findOne({ username});
+    
+    if (!user) {
+        res.status(401).json({ success: false, message: 'Invalid username' });
     }
+    
+    console.log("Stored hashed passwords in DB:",user.password);
+    
+    const isMatch = await bcrypt.compare(password,user.password);
+    
+    console.log("Password comparison: ",isMatch);
+    
+    if(isMatch)
+    {
+        res.json({
+        success: true,
+        username: user.username,
+        gameScore: user.gameScore,
+        isGuest: user.isGuest
+        });
+    }
+    else
+    {
+    res.status(401).json({ success: false, message: 'Some Error with login!' });
+    }
+      
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
