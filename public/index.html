@@ -112,6 +112,10 @@
         alert("Please enter both username and password.");
         return;
       }
+      
+      // Hash the password using bcrypt before sending it to the server
+      //const hashedPassword = await bcrypt.hash(password, 10); // 10 is the salt rounds
+      
 
       // Make an API call to compare the entered credentials with the database
       try {

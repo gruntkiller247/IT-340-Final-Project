@@ -59,7 +59,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`Server running on port ${port}`);
 });
 
@@ -80,6 +80,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
   // The index.html file is automatically served because it's in the "public" folder
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.send('Hello from VM2!');
 });
 
 // Example route for database interaction
