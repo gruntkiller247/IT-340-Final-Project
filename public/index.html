@@ -115,7 +115,8 @@
 
       // Make an API call to compare the entered credentials with the database
       try {
-        const response = await fetch('/api/login', {
+        //const response = await fetch('/api/login', {
+        const response = await fetch('/http://192.168.56.103:3000/api/login',{
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
